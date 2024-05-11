@@ -15,7 +15,7 @@ namespace MisTarea.ViewModels
         private string description;
         private DateTime hora;
         private DateTime fecha;
-        private string categoria;
+        
         private bool repetir;
         private bool repetirInv = true;
         private bool lunes;
@@ -25,7 +25,9 @@ namespace MisTarea.ViewModels
         private bool viernes;
         private bool sabado;
         private bool domingo;
-
+        private webService _webService;
+        private List<webService.Categoria> _categorias;
+        private string _selectedCategoria;
         #region Variables
         public string Nombre
         {
@@ -47,13 +49,7 @@ namespace MisTarea.ViewModels
         {
             get => fecha;
             set => SetProperty(ref fecha, value);
-        }
-
-        public string Categoria
-        {
-            get => categoria;
-            set => SetProperty(ref categoria, value);
-        }
+        }       
         public bool Repetir
         {
             get => repetir;
@@ -120,10 +116,51 @@ namespace MisTarea.ViewModels
 
         public NewItemViewModel()
         {
+            _webService = new webService();
+            LoadCategorias(); // Método para cargar las categorías al inicializar la vista modelo
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
+            this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
+        }
+
+        public List<webService.Categoria> Categorias
+        {
+            get => _categorias;
+            set
+            {
+                _categorias = value;
+                OnPropertyChanged(nameof(Categorias));
+            }
+        }
+
+        public string SelectedCategoria
+        {
+            get => _selectedCategoria;
+            set
+            {
+                _selectedCategoria = value;
+                OnPropertyChanged(nameof(SelectedCategoria));
+            }
+        }
+
+        private async void LoadCategorias()
+        {
+            try
+            {
+                Categorias = await _webService.CargarCategorias();
+                if (Categorias != null && Categorias.Count > 0)
+                {
+                    SelectedCategoria = Categorias[0].Category; // Puedes asignar la primera categoría como la seleccionada por defecto
+                }
+                else
+                {
+                    // Manejo de error si no se pueden cargar las categorías
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+            }
         }
 
         private bool ValidateSave()
@@ -149,7 +186,7 @@ namespace MisTarea.ViewModels
             crud.Guardar(new tareas.NuevaTarea { 
                 Nombre = Nombre, 
                 Descripcion = Descripcion, 
-                IdTipoTarea = Categoria, 
+                IdTipoTarea = _selectedCategoria, 
                 FecIngreso = DateTime.Now.ToString("yyyy-MM-dd"), 
                 Hora = Hora.ToString("HH:mm"), 
                 FecFinal = Fecha.ToString("yyyy-MM-dd HH:mm"), 

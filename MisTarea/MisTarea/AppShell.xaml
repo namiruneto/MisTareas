@@ -30,8 +30,8 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Pendiente" Icon="icon_about.png" Route="Pendiente" ContentTemplate="{DataTemplate local:Pendiente}" />
-        <ShellContent Title="Completada" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Title="Pendiente" Icon="icon_about.png" Route="Pendiente" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Title="Completada" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:Pendiente}" />
     </TabBar>
 
     <!--

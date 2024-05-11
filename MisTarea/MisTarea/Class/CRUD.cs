@@ -16,6 +16,30 @@ namespace MisTarea.Class
         {
             ConexionSqlite conexionSqlite = new ConexionSqlite("");
             //se valida si va ser una tarea de una sola vez o de varios dias
+            if(model.Estado == "Completada" && !model.Repetir)
+            {
+                //para actualizar los datos para colocarlaca completada
+                tareas.TAREA tarea = new tareas.TAREA
+                {
+                    Id = model.Id,
+                    Estado = model.Estado,
+                    FecTerminar = model.FecFinal,
+                };
+
+            }else if(model.Estado == "Completada" && model.Repetir)
+            {
+                tareas.TAREA tarea = new tareas.TAREA
+                {
+                    Nombre = model.Nombre,
+                    Descripcion = model.Descripcion,
+                    IdTipoTarea = model.IdTipoTarea,
+                    Estado = "Completada",
+                    FecIngreso = model.FecIngreso,
+                    FecFinal = model.FecFinal,
+                    FecTerminar = ""
+                };
+                conexionSqlite.Actualizar(tarea);
+            }
             if (model.Repetir)
             {
                 tareas.TareaDiaria tarea = new tareas.TareaDiaria

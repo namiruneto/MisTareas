@@ -18,7 +18,8 @@
             <Editor Text="{Binding Descripcion}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
 
             <Label Text="Categoría" FontSize="Medium" />
-            <Entry Text="{Binding Categoria}" FontSize="Medium" />
+                <Entry Text="{Binding Categorias}" FontSize="Medium" x:Name="txtCategoria" Margin="0,5,0,10"/>
+
 
             <Label Text="Hora" FontSize="Medium" />
             <TimePicker Time="{Binding Hora}" FontSize="Medium" />

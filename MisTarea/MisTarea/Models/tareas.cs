@@ -9,6 +9,7 @@ namespace MisTarea.Models
     {
         public class NuevaTarea
         {
+            public int Id { get; set; }
             public string Nombre { get; set; }
             public string IdTipoTarea { get; set; }
             public string Descripcion { get; set; }
@@ -75,6 +76,9 @@ namespace MisTarea.Models
             public string FechaInicio {  get; set; }
             public string FechaFin {  get; set; }
             public string Hora { get; set; }
+            public string Descripcion { get; set; }
+            public bool Diaria { get; set; }
+
         }
 
     }

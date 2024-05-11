@@ -42,6 +42,10 @@ namespace MisTarea.Class
         {
             return db.InsertAsync(tareasDiaria);
         }
+        public Task<int> Actualizar<T>(T tareasDiaria)
+        {
+            return db.UpdateAsync(tareasDiaria);
+        }
 
         public async Task<List<tareas.TareaPendiente>> TareasPendiente()
         {
@@ -65,8 +69,10 @@ namespace MisTarea.Class
                     Id = ta.Id,
                     Nombre = ta.Nombre,
                     IdCategoria = ta.IdTipoTarea,
-                    Hora = ta.FecFinal.Split(' ')[1]
-                });
+                    Hora = ta.FecFinal.Split(' ')[1],
+                    Descripcion = ta.Descripcion,
+                    Diaria = false
+                }); ;
             }
             //se agregan las tareas que tiene pendiente del dia de hoy y si tiene de ayer tambien 
             foreach (TareaDiaria ta in tareasDiaria)
@@ -77,7 +83,9 @@ namespace MisTarea.Class
                     Id = ta.Id,
                     Nombre = ta.Nombre,
                     IdCategoria = ta.IdCategoria,
-                    Hora = ta.Hora
+                    Hora = ta.Hora,
+                    Descripcion = ta.Descripcion,
+                    Diaria = true
                 });
             }
             return pendientes;

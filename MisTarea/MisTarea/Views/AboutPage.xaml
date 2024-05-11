@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:loc a
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              x:Class="MisTarea.Views.AboutPage"
              xmlns:vm="clr-namespace:MisTarea.ViewModels"
              
@@ -14,25 +13,33 @@
     </ContentPage.BindingContext>
 
     <StackLayout Margin="20,20,20,20">
-        <ListView ItemsSource="{Binding TareasPendiente}" HasUnevenRows="True" ItemSelected="ListView_ItemSelected" ItemTapped="ListView_ItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1" Text="{Binding Nombre}" FontAttributes="Bold"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Nombre}" VerticalOptions="End"/>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Frame BorderColor="Black" CornerRadius="10" Padding="10">
+            <StackLayout>
+                <Label Text="Título:" FontAttributes="Bold" TextColor="Black"/>
+                <Label Text="" x:Name="lblTitulo" Margin="0,5,0,10"/>
+
+                <Label Text="Descripción:" FontAttributes="Bold" TextColor="Black"/>
+                <Label Text="" x:Name="lblDescripcion" Margin="0,5,0,10"/>
+
+                <Label Text="Tipo de categoría:" FontAttributes="Bold" TextColor="Black"/>
+                <Label Text="" x:Name="lblTipoCategoria" Margin="0,5,0,10"/>
+
+                <Label Text="Hora de finalización:" FontAttributes="Bold" TextColor="Black"/>
+                <Label Text="" x:Name="lblHoraFinalizacion" Margin="0,5,0,10"/>
+
+                <Label Text="Fecha:" FontAttributes="Bold" TextColor="Black"/>
+                <Label Text="" x:Name="lblFecha" Margin="0,5,0,10"/>
+                <Button Text="Eliminar"  x:Name="btnEliminar" WidthRequest="100" Margin="10"/>
+            </StackLayout>
+        </Frame>
+
+        <!-- Cuadro de botones -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Margin="0,20">
+            <Button Text="Atrás" x:Name="btnAtras" WidthRequest="100" Margin="10"/>
+            <Button Text="Completado" x:Name="btnCompletado" WidthRequest="100" Margin="10"/>
+            <Button Text="Siguiente" x:Name="btnSiguiente" WidthRequest="100" Margin="10"/>
+            
+
+        </StackLayout>
     </StackLayout>
 </ContentPage>
