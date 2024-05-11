@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Completado.xaml.cs">
+      <DependentUpon>Completado.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\TareaCell.xaml.cs">
       <DependentUpon>TareaCell.xaml</DependentUpon>
     </Compile>

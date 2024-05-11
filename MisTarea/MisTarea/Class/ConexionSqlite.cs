@@ -91,8 +91,36 @@ namespace MisTarea.Class
             return pendientes;
 
         }
+
+        public async Task<List<tareas.TareaPendiente>> TareasCompletada()
+        {
+            var listaTareas = db.Table<tareas.TAREA>().Where(c => c.Estado == "Completada").ToListAsync();
+
+            List<TAREA> Tareas = listaTareas.Result;
+            // sabemos los datos en general para posteriormente hacer cuales se deben mostrar 
+
+
+
+            List<TareaPendiente> pendientes = new List<TareaPendiente>();
+            //agregamos las tareas que elusuario efinio desde un inicio
+            foreach (TAREA ta in Tareas)
+            {
+                pendientes.Add(new TareaPendiente
+                {
+                    FechaInicio = ta.FecIngreso,
+                    FechaFin = ta.FecFinal.Split(' ')[0],
+                    Id = ta.Id,
+                    Nombre = ta.Nombre,
+                    IdCategoria = ta.IdTipoTarea,
+                    Hora = ta.FecFinal.Split(' ')[1],
+                    Descripcion = ta.Descripcion,
+                    Diaria = false
+                }); ;
+            }
             
-          
+            return pendientes;
+
+        }
 
     }
 }

@@ -1,5 +1,4 @@
-﻿using MisTarea.Class;
-using MisTarea.ViewModels;
+﻿using MisTarea.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,17 +9,18 @@ using static MisTarea.Models.tareas;
 
 namespace MisTarea.Views
 {
-    public partial class Pendiente : ContentPage
+    public partial class Completado : ContentPage
     {
         public IList<Models.tareas.TareaPendiente> TareasPendiente { get; private set; }
-
-        public Pendiente()
+        public int Consecutivo { get; set; }
+       
+        public Completado()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new CompletadoModel();
             TareasPendiente = new ObservableCollection<Models.tareas.TareaPendiente>();
             Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
-            var resultado = sqlite.TareasPendiente();
+            var resultado = sqlite.TareasCompletada();
             resultado.Wait();
             TareasPendiente = resultado.Result;
             // Comprueba si la lista está vacía o no
@@ -34,8 +34,9 @@ namespace MisTarea.Views
                 // La lista está vacía
                 Console.WriteLine("La lista TareasPendiente está vacía.");
             }
+            Consecutivo = 0;
+           
 
-        }   
-
+        }
     }
 }
