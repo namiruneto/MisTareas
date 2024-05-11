@@ -1,4 +1,5 @@
-﻿using MisTarea.ViewModels;
+﻿using MisTarea.Models;
+using MisTarea.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -91,7 +92,7 @@ namespace MisTarea.Views
             TareasPendiente = resultado.Result;
 
             Consecutivo = TareasPendiente.Count == Consecutivo ? 0 : Consecutivo + 1;
-            if (TareasPendiente.Count == 0)
+            if (TareasPendiente.Count <= Consecutivo)
             {
                 lblTitulo.Text = "Sin tareas Pendiente";
             }
@@ -108,32 +109,60 @@ namespace MisTarea.Views
         private void BtnCompletado_Clicked(object sender, EventArgs e)
         {
             Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
-            sqlite.Guardar(new NuevaTarea
+           var Validar = sqlite.Actualizar(new tareas.TAREA
             {
                 Id = TareasPendiente[Consecutivo].Id,
-                Estado = "Completada",
-                Repetir = TareasPendiente[Consecutivo].Diaria,
+                Estado = "Completada", 
                 FecFinal = DateTime.Now.ToString("yyyy-MM-dd"),
                 Nombre = TareasPendiente[Consecutivo].Nombre,
                 Descripcion = TareasPendiente[Consecutivo].Descripcion,
                 IdTipoTarea = TareasPendiente[Consecutivo].IdCategoria,
                 FecIngreso = TareasPendiente[Consecutivo].FechaInicio  
-            });           
+            });
+            CargarVacio();
+           
         }
         private void BtnEliminar_Clicked(object sender, EventArgs e)
         {
             Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
-            sqlite.Guardar(new NuevaTarea
+            var Validar = sqlite.Actualizar(new tareas.TAREA
             {
                 Id = TareasPendiente[Consecutivo].Id,
                 Estado = "Eliminar",
-                Repetir = TareasPendiente[Consecutivo].Diaria,
                 FecFinal = DateTime.Now.ToString("yyyy-MM-dd"),
                 Nombre = TareasPendiente[Consecutivo].Nombre,
                 Descripcion = TareasPendiente[Consecutivo].Descripcion,
                 IdTipoTarea = TareasPendiente[Consecutivo].IdCategoria,
-                FecIngreso = TareasPendiente[Consecutivo].FechaInicio,
+                FecIngreso = TareasPendiente[Consecutivo].FechaInicio
             });
+            CargarVacio();
+        }
+
+        private void CargarVacio()
+        {
+            Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
+            var resultado = sqlite.TareasPendiente();
+            resultado.Wait();
+            TareasPendiente = resultado.Result;
+
+            if (TareasPendiente.Count == 0)
+            {
+
+                lblTitulo.Text = "";
+                lblDescripcion.Text = "";
+                lblTipoCategoria.Text = "";
+                lblHoraFinalizacion.Text = "";
+                lblFecha.Text = "";
+            }
+            else
+            {
+                lblTitulo.Text = TareasPendiente[1].Nombre;
+                lblDescripcion.Text = TareasPendiente[1].Descripcion;
+                lblTipoCategoria.Text = TareasPendiente[1].IdCategoria;
+                lblHoraFinalizacion.Text = TareasPendiente[1].Hora;
+                lblFecha.Text = TareasPendiente[1].FechaFin;
+
+            }
         }
     }
 }

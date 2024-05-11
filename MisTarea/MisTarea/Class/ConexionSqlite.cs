@@ -42,9 +42,47 @@ namespace MisTarea.Class
         {
             return db.InsertAsync(tareasDiaria);
         }
-        public Task<int> Actualizar<T>(T tareasDiaria)
+        public async Task<bool> Actualizar(tareas.TAREA tareaDiaria) 
         {
-            return db.UpdateAsync(tareasDiaria);
+            try
+            {
+                // Obtener el objeto original antes de la actualización
+                var originalObjeto = await db.FindAsync<tareas.TAREA>(tareaDiaria.Id);
+
+                // Actualizar el registro en la base de datos de forma asincrónica
+                int filasAfectadas = await db.UpdateAsync(tareaDiaria);
+
+                if (filasAfectadas > 0)
+                {
+                    // Comparar cada propiedad para detectar cambios
+                    if (!EqualityComparer<string>.Default.Equals(originalObjeto.IdTipoTarea, tareaDiaria.IdTipoTarea))
+                    {
+                        Console.WriteLine("La propiedad IdTipoTarea ha cambiado de: " + originalObjeto.IdTipoTarea + " a: " + tareaDiaria.IdTipoTarea);
+                        // Realizar acciones adicionales según sea necesario
+                    }
+                    if (!EqualityComparer<string>.Default.Equals(originalObjeto.Nombre, tareaDiaria.Nombre))
+                    {
+                        Console.WriteLine("La propiedad Nombre ha cambiado de: " + originalObjeto.Nombre + " a: " + tareaDiaria.Nombre);
+                        // Realizar acciones adicionales según sea necesario
+                    }
+                    // Continuar comparando otras propiedades si es necesario
+
+                    Console.WriteLine("La actualización se realizó correctamente.");
+                    return true;
+                }
+                else
+                {
+                    // No se realizaron cambios en la base de datos
+                    Console.WriteLine("No se realizaron cambios en la base de datos.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepciones aquí, si es necesario
+                Console.WriteLine("Error al intentar actualizar el registro: " + ex.Message);
+                return false;
+            }
         }
 
         public async Task<List<tareas.TareaPendiente>> TareasPendiente()
@@ -108,11 +146,11 @@ namespace MisTarea.Class
                 pendientes.Add(new TareaPendiente
                 {
                     FechaInicio = ta.FecIngreso,
-                    FechaFin = ta.FecFinal.Split(' ')[0],
+                    FechaFin = ta.FecFinal,
                     Id = ta.Id,
                     Nombre = ta.Nombre,
                     IdCategoria = ta.IdTipoTarea,
-                    Hora = ta.FecFinal.Split(' ')[1],
+                    Hora = ta.FecFinal,
                     Descripcion = ta.Descripcion,
                     Diaria = false
                 }); ;

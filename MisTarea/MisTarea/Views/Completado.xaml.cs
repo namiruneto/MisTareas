@@ -11,7 +11,7 @@ namespace MisTarea.Views
 {
     public partial class Completado : ContentPage
     {
-        public IList<Models.tareas.TareaPendiente> TareasPendiente { get; private set; }
+        public ObservableCollection<Models.tareas.TareaPendiente> TareasPendiente { get; private set; }
         public int Consecutivo { get; set; }
        
         public Completado()
@@ -19,24 +19,25 @@ namespace MisTarea.Views
             InitializeComponent();
             BindingContext = new CompletadoModel();
             TareasPendiente = new ObservableCollection<Models.tareas.TareaPendiente>();
+
+            // Llena la lista con datos
+            LlenarListaTareas();     
+        }
+
+        private void LlenarListaTareas()
+        {           
             Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
             var resultado = sqlite.TareasCompletada();
-            resultado.Wait();
-            TareasPendiente = resultado.Result;
-            // Comprueba si la lista está vacía o no
-            if (TareasPendiente != null && TareasPendiente.Count > 0)
-            {
-                // La lista tiene elementos
-                Console.WriteLine("La lista TareasPendiente tiene elementos.");
-            }
-            else
-            {
-                // La lista está vacía
-                Console.WriteLine("La lista TareasPendiente está vacía.");
-            }
-            Consecutivo = 0;
-           
+            var tareasCompletadas = resultado.Result;
 
+            // Agrega las tareas completadas a la lista TareasPendiente
+            foreach (var tarea in tareasCompletadas)
+            {
+                TareasPendiente.Add(tarea);
+            }
+
+            // Establece el ItemsSource del ListView como la lista TareasPendiente
+            listaTareasCompletadas.ItemsSource = TareasPendiente;
         }
     }
 }

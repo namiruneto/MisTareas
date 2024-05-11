@@ -13,14 +13,16 @@
     </ContentPage.BindingContext>
 
     <StackLayout Margin="20,20,20,20">
+        <Label Text="Tareas Completadas" FontAttributes="Bold" />
         <!-- Lista de tareas -->
-        <ListView ItemsSource="{Binding TareasPendiente}">
+        <ListView x:Name="listaTareasCompletadas">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="0,10">
                             <Label Text="{Binding Nombre}" FontAttributes="Bold" TextColor="Black"/>
-                            <Label Text="{Binding Descripcion}" TextColor="Black"/>
+                            <Label Text="{Binding Descripcion}"  FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding FechaFin}"  FontAttributes="Bold" TextColor="Black"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
