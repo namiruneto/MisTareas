@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           x:Class="MisTarea.Views.TareaCell">
+    <StackLayout Padding="10">
+        <Label Text="{Binding Nombre}" FontAttributes="Bold"/>
+        <Label Text="{Binding IdCategoria}" />
+        <Label Text="{Binding FechaInicio}" />
+        <Label Text="{Binding FechaFin}" />
+        <Label Text="{Binding Hora}" />
+    </StackLayout>
+</ViewCell>

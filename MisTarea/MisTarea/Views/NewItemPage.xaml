@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MisTarea.Views.NewItemPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="Nueva Tarea"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Content>
+        <ScrollView >
+            <StackLayout Spacing="3" Padding="5">
+                <Label Text="Agregar Tarea" FontSize="Large" HorizontalOptions="CenterAndExpand" />
+
+                <Label Text="Nombre" FontSize="Medium" />
+            <Entry Text="{Binding Nombre}" FontSize="Medium" />
+
+            <Label Text="Descripción" FontSize="Medium" />
+            <Editor Text="{Binding Descripcion}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+
+            <Label Text="Categoría" FontSize="Medium" />
+            <Entry Text="{Binding Categoria}" FontSize="Medium" />
+
+            <Label Text="Hora" FontSize="Medium" />
+            <TimePicker Time="{Binding Hora}" FontSize="Medium" />
+
+            <Label Text="Repetir" FontSize="Medium" />
+                <Switch x:Name="switchRepetir" HorizontalOptions="Start" IsToggled="{Binding Repetir}" />
+
+
+                <Label Text="Fecha" FontSize="Medium" IsVisible="{Binding RepetirInv}"/>
+                <DatePicker Date="{Binding Fecha}" FontSize="Medium" IsVisible="{Binding RepetirInv}"/>
+
+                <Label Text="Días de la semana" FontSize="Medium" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}" />
+
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Lunes" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Lunes}" />
+            </StackLayout>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Martes" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Martes}" />
+            </StackLayout>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Miércoles" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Miercoles}" />
+            </StackLayout>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Jueves" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Jueves}" />
+            </StackLayout>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Viernes" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Viernes}" />
+            </StackLayout>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Sábado" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Sabado}" />
+            </StackLayout>
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Source={x:Reference switchRepetir}, Path=IsToggled}">
+                <Label Text="Domingo" FontSize="Medium" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Domingo}" />
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancelar" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Guardar" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

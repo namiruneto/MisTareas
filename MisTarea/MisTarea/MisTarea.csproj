@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Realm" Version="12.1.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="SQLite.Interop.dll" Version="1.0.103" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\TareaCell.xaml.cs">
+      <DependentUpon>TareaCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pendiente.xaml.cs">
+      <DependentUpon>Pendiente.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Realm\" />
+  </ItemGroup>
+</Project>
