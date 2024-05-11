@@ -13,33 +13,18 @@
     </ContentPage.BindingContext>
 
     <StackLayout Margin="20,20,20,20">
-        <Frame BorderColor="Black" CornerRadius="10" Padding="10">
-            <StackLayout>
-                <Label Text="Título:" FontAttributes="Bold" TextColor="Black"/>
-                <Label Text="" x:Name="lblTitulo" Margin="0,5,0,10"/>
-
-                <Label Text="Descripción:" FontAttributes="Bold" TextColor="Black"/>
-                <Label Text="" x:Name="lblDescripcion" Margin="0,5,0,10"/>
-
-                <Label Text="Tipo de categoría:" FontAttributes="Bold" TextColor="Black"/>
-                <Label Text="" x:Name="lblTipoCategoria" Margin="0,5,0,10"/>
-
-                <Label Text="Hora de finalización:" FontAttributes="Bold" TextColor="Black"/>
-                <Label Text="" x:Name="lblHoraFinalizacion" Margin="0,5,0,10"/>
-
-                <Label Text="Fecha:" FontAttributes="Bold" TextColor="Black"/>
-                <Label Text="" x:Name="lblFecha" Margin="0,5,0,10"/>
-                <Button Text="Eliminar"  x:Name="btnEliminar" WidthRequest="100" Margin="10"/>
-            </StackLayout>
-        </Frame>
-
-        <!-- Cuadro de botones -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Margin="0,20">
-            <Button Text="Atrás" x:Name="btnAtras" WidthRequest="100" Margin="10"/>
-            <Button Text="Completado" x:Name="btnCompletado" WidthRequest="100" Margin="10"/>
-            <Button Text="Siguiente" x:Name="btnSiguiente" WidthRequest="100" Margin="10"/>
-            
-
-        </StackLayout>
+        <!-- Lista de tareas -->
+        <ListView ItemsSource="{Binding TareasPendiente}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="0,10">
+                            <Label Text="{Binding Nombre}" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding Descripcion}" TextColor="Black"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>      
     </StackLayout>
 </ContentPage>

@@ -2,6 +2,7 @@
 using MisTarea.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
@@ -28,6 +29,7 @@ namespace MisTarea.ViewModels
         private webService _webService;
         private List<webService.Categoria> _categorias;
         private string _selectedCategoria;
+        public ObservableCollection<string> ListaElementos { get; set; } = new ObservableCollection<string>();
         #region Variables
         public string Nombre
         {
@@ -150,7 +152,10 @@ namespace MisTarea.ViewModels
                 Categorias = await _webService.CargarCategorias();
                 if (Categorias != null && Categorias.Count > 0)
                 {
-                    SelectedCategoria = Categorias[0].Category; // Puedes asignar la primera categoría como la seleccionada por defecto
+                    foreach(var categoria in Categorias)
+                    {
+                        ListaElementos.Add(categoria.Category);
+                    }                   
                 }
                 else
                 {

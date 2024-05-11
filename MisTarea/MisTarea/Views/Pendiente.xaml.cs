@@ -1,9 +1,12 @@
-﻿using MisTarea.Class;
+﻿using MisTarea.Models;
 using MisTarea.ViewModels;
+using MisTarea.Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static MisTarea.Models.tareas;
@@ -12,30 +15,54 @@ namespace MisTarea.Views
 {
     public partial class Pendiente : ContentPage
     {
-        public IList<Models.tareas.TareaPendiente> TareasPendiente { get; private set; }
+        ItemsViewModel _viewModel;
 
         public Pendiente()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
-            TareasPendiente = new ObservableCollection<Models.tareas.TareaPendiente>();
-            Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
-            var resultado = sqlite.TareasPendiente();
-            resultado.Wait();
-            TareasPendiente = resultado.Result;
-            // Comprueba si la lista está vacía o no
-            if (TareasPendiente != null && TareasPendiente.Count > 0)
-            {
-                // La lista tiene elementos
-                Console.WriteLine("La lista TareasPendiente tiene elementos.");
-            }
-            else
-            {
-                // La lista está vacía
-                Console.WriteLine("La lista TareasPendiente está vacía.");
-            }
 
-        }   
+            BindingContext = _viewModel = new ItemsViewModel();
+        }
+       
+        public List<TareaPendiente> TareasPendiente { get; set; } = new List<TareaPendiente>();
 
+        private void CargarDatosDeEjemplo()
+        {
+            // Agregar algunas tareas de ejemplo a la lista
+            TareasPendiente.Add(new TareaPendiente
+            {
+                Id = 1,
+                Nombre = "Hacer compras",
+                IdCategoria = "Personal",
+                FechaInicio = "2024-05-11",
+                FechaFin = "2024-05-15",
+                Hora = "10:00"
+            });
+
+            TareasPendiente.Add(new TareaPendiente
+            {
+                Id = 2,
+                Nombre = "Preparar presentación",
+                IdCategoria = "Trabajo",
+                FechaInicio = "2024-05-12",
+                FechaFin = "2024-05-14",
+                Hora = "15:00"
+            });
+
+            TareasPendiente.Add(new TareaPendiente
+            {
+                Id = 3,
+                Nombre = "Hacer ejercicio",
+                IdCategoria = "Personal",
+                FechaInicio = "2024-05-13",
+                FechaFin = "2024-05-13",
+                Hora = "08:00"
+            });
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+        }
     }
 }

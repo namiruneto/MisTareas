@@ -25,8 +25,8 @@ namespace MisTarea.Class
         {
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "db.db3");
             if (File.Exists(dbPath))
-            {
-                db = new SQLiteAsyncConnection(dbPath);
+            {                
+                db = new SQLiteAsyncConnection(dbPath);               
             }
             else
             {

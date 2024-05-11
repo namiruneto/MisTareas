@@ -13,7 +13,10 @@ namespace MisTarea.Views
     {
         public IList<Models.tareas.TareaPendiente> TareasPendiente { get; private set; }
         public int Consecutivo { get; set; }
-       
+        public Command LoadItemsCommand { get; }
+        public Command AddItemCommand { get; }
+        public Command<TareaPendiente> ItemTapped { get; }
+
         public AboutPage()
         {
             InitializeComponent();
@@ -39,7 +42,24 @@ namespace MisTarea.Views
             btnSiguiente.Clicked += BtnSiguiente_Clicked;
             btnCompletado.Clicked += BtnCompletado_Clicked;
             btnEliminar.Clicked += BtnEliminar_Clicked;
+            ItemTapped = new Command<TareaPendiente>(OnItemSelected);
 
+            AddItemCommand = new Command(OnAddItem);
+
+        }
+
+        private async void OnAddItem(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(NewItemPage));
+        }
+
+        async void OnItemSelected(TareaPendiente item)
+        {
+            if (item == null)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
 
         private void BtnAtras_Clicked(object sender, EventArgs e)

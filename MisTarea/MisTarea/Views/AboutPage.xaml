@@ -5,12 +5,13 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              x:Class="MisTarea.Views.AboutPage"
              xmlns:vm="clr-namespace:MisTarea.ViewModels"
+
              
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
         <ToolbarItem Text="Agregar Tarea" Command="{Binding AddItemCommand}" />
-    </ContentPage.BindingContext>
+    </ContentPage.ToolbarItems>
 
     <StackLayout Margin="20,20,20,20">
         <Frame BorderColor="Black" CornerRadius="10" Padding="10">

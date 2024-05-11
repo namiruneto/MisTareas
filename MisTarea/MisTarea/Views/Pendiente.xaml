@@ -4,30 +4,10 @@
              Title="{Binding Title}"           
              x:Name="BrowseItemsPage">
 
-    <ContentPage.ToolbarItems>       
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Agregar Tarea" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
-
-    <StackLayout>
-        <Label Text="Categoría" FontSize="Medium" />
-
-        <ListView ItemsSource="{Binding Categorias}">
-            <ListView.Header>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="ID" FontAttributes="Bold" WidthRequest="50" HorizontalOptions="Center"/>
-                    <Label Text="Categoría" FontAttributes="Bold" HorizontalOptions="Center" />
-                </StackLayout>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Id}" WidthRequest="50" HorizontalOptions="Center"/>
-                            <Label Text="{Binding Category}" HorizontalOptions="Center" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
-
+    
+        <Label Text="Categoría" FontSize="Medium" />      
+    
 </ContentPage>
