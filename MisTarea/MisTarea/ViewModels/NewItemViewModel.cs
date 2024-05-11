@@ -155,7 +155,8 @@ namespace MisTarea.ViewModels
                     foreach(var categoria in Categorias)
                     {
                         ListaElementos.Add(categoria.Category);
-                    }                   
+                    }
+                   
                 }
                 else
                 {

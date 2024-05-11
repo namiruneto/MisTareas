@@ -64,6 +64,10 @@ namespace MisTarea.Views
 
         private void BtnAtras_Clicked(object sender, EventArgs e)
         {
+            Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
+            var resultado = sqlite.TareasPendiente();
+            resultado.Wait();
+            TareasPendiente = resultado.Result;
             Consecutivo = TareasPendiente.Count == Consecutivo ? TareasPendiente.Count - 1 : Consecutivo--;
             if(TareasPendiente.Count == 0)
             {
@@ -81,7 +85,12 @@ namespace MisTarea.Views
 
         private void BtnSiguiente_Clicked(object sender, EventArgs e)
         {
-            Consecutivo = TareasPendiente.Count == Consecutivo ? 0 : Consecutivo++;
+            Class.ConexionSqlite sqlite = new Class.ConexionSqlite("");
+            var resultado = sqlite.TareasPendiente();
+            resultado.Wait();
+            TareasPendiente = resultado.Result;
+
+            Consecutivo = TareasPendiente.Count == Consecutivo ? 0 : Consecutivo + 1;
             if (TareasPendiente.Count == 0)
             {
                 lblTitulo.Text = "Sin tareas Pendiente";

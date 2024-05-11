@@ -17,8 +17,8 @@
             <Label Text="Descripción" FontSize="Medium" />
             <Editor Text="{Binding Descripcion}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
 
-            <Label Text="Categoría" FontSize="Medium" />                
-                <Picker ItemsSource="{Binding ListaElementos}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+            <Label Text="Categoría" FontSize="Medium" />               
+                <Picker ItemsSource="{Binding ListaElementos}" x:Name="txtCategoria" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
 
 
             <Label Text="Hora" FontSize="Medium" />
